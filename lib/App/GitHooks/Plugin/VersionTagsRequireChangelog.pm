@@ -19,7 +19,7 @@ use App::GitHooks::Constants qw( :PLUGIN_RETURN_CODES );
 
 =head1 NAME
 
-App::GitHooks::Plugin::VersionTagsRequireChangelog - Require version tags to have a matching changelog entry.
+App::GitHooks::Plugin::VersionTagsRequireChangelog - Require git version tags to have a matching changelog entry.
 
 
 =head1 DESCRIPTION
