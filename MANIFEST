@@ -3,3 +3,12 @@ MANIFEST
 MANIFEST.SKIP
 README.md
 lib/App/GitHooks/Plugin/VersionTagsRequireChangelog.pm
+xt/changes.t
+xt/kwalitee.t
+xt/manifest.t
+xt/module_versions.t
+xt/mojibake.t
+xt/perlcritic.t
+xt/pod-coverage.t
+xt/pod.t
+xt/unix_eol.t
