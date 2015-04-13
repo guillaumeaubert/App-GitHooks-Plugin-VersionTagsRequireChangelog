@@ -1,4 +1,5 @@
 .githooksrc
+.travis.yml
 LICENSE
 MANIFEST
 MANIFEST.SKIP
