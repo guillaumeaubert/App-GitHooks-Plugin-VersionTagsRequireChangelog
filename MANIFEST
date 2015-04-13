@@ -1,0 +1,5 @@
+.githooksrc
+MANIFEST
+MANIFEST.SKIP
+README.md
+lib/App/GitHooks/Plugin/VersionTagsRequireChangelog.pm
