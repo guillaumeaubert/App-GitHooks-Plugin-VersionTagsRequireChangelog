@@ -1,4 +1,5 @@
 .githooksrc
+.perlcriticrc
 .travis.yml
 LICENSE
 MANIFEST
