@@ -2,6 +2,7 @@
 MANIFEST
 MANIFEST.SKIP
 README.md
+example/examples.txt
 lib/App/GitHooks/Plugin/VersionTagsRequireChangelog.pm
 xt/changes.t
 xt/kwalitee.t
