@@ -5,7 +5,7 @@ App-GitHooks-Plugin-VersionTagsRequireChangelog
 [![Coverage Status](https://coveralls.io/repos/guillaumeaubert/App-GitHooks-Plugin-VersionTagsRequireChangelog/badge.svg?branch=master)](https://coveralls.io/r/guillaumeaubert/App-GitHooks-Plugin-VersionTagsRequireChangelog?branch=master)
 [![CPAN](https://img.shields.io/cpan/v/App-GitHooks-Plugin-VersionTagsRequireChangelog.svg)](https://metacpan.org/release/App-GitHooks-Plugin-VersionTagsRequireChangelog)
 
-App::GitHooks plugin to require git version tags to have a matching changelog entry.
+App::GitHooks plugin to require that git version tags have a matching changelog entry.
 
 
 INSTALLATION
