@@ -71,7 +71,7 @@ your repository:
 
 Code to execute as part of the pre-push hook.
 
-  my $plugin_return_code = App::GitHooks::Plugin::VersionTagsRequireChangelog->run_pre_push(
+	my $plugin_return_code = App::GitHooks::Plugin::VersionTagsRequireChangelog->run_pre_push(
 		app   => $app,
 		stdin => $stdin,
 	);
@@ -95,43 +95,43 @@ being pushed.
 
 sub run_pre_push
 {
-    my ( $class, %args ) = @_;
-    my $app = delete( $args{'app'} );
-    my $stdin = delete( $args{'stdin'} );
+	my ( $class, %args ) = @_;
+	my $app = delete( $args{'app'} );
+	my $stdin = delete( $args{'stdin'} );
 
-    $log->info( 'Entering VersionTagsRequireChangelog.' );
+	$log->info( 'Entering VersionTagsRequireChangelog.' );
 
-    my $config = $app->get_config();
-    my $repository = $app->get_repository();
+	my $config = $app->get_config();
+	my $repository = $app->get_repository();
 
-    # Check if we are pushing any tags.
-    my @tags = get_pushed_tags( $app, $stdin );
-    $log->infof( "Found %s tag(s) to push.", scalar( @tags ) );
-    if ( scalar( @tags ) == 0 )
-    {
-        $log->info( "No tags were found in the list of references to push." );
-        return $PLUGIN_RETURN_SKIPPED;
-    }
+	# Check if we are pushing any tags.
+	my @tags = get_pushed_tags( $app, $stdin );
+	$log->infof( "Found %s tag(s) to push.", scalar( @tags ) );
+	if ( scalar( @tags ) == 0 )
+	{
+		$log->info( "No tags were found in the list of references to push." );
+		return $PLUGIN_RETURN_SKIPPED;
+	}
 
-    # Get the list of releases in the changelog.
-    my $releases = get_changelog_releases( $app );
+	# Get the list of releases in the changelog.
+	my $releases = get_changelog_releases( $app );
 
-    # Find tags without release notes.
-    my @missing_changelog_tags =
-        grep { !defined( $releases->{ $_ } ) }
-        @tags;
+	# Find tags without release notes.
+	my @missing_changelog_tags =
+		grep { !defined( $releases->{ $_ } ) }
+		@tags;
 
-    if ( scalar( @missing_changelog_tags ) != 0 )
-    {
-        die sprintf(
-            'You are trying to push the following %s, but %s missing from the changelog: %s.',
-            scalar( @missing_changelog_tags ) == 1 ? 'tag' : 'tags',
-            scalar( @missing_changelog_tags ) == 1 ? 'it is' : 'they are',
-            join( ', ', @missing_changelog_tags ),
-        ) . "\n";
-    }
+	if ( scalar( @missing_changelog_tags ) != 0 )
+	{
+		die sprintf(
+			'You are trying to push the following %s, but %s missing from the changelog: %s.',
+			scalar( @missing_changelog_tags ) == 1 ? 'tag' : 'tags',
+			scalar( @missing_changelog_tags ) == 1 ? 'it is' : 'they are',
+			join( ', ', @missing_changelog_tags ),
+		) . "\n";
+	}
 
-    return $PLUGIN_RETURN_PASSED;
+	return $PLUGIN_RETURN_PASSED;
 }
 
 
@@ -165,29 +165,29 @@ being pushed.
 
 sub get_pushed_tags
 {
-    my ( $app, $stdin ) = @_;
-    my $config = $app->get_config();
+	my ( $app, $stdin ) = @_;
+	my $config = $app->get_config();
 
-    # Tag pattern.
-    my $version_tag_regex = $config->get_regex( 'VersionTagsRequireChangelog', 'version_tag_regex' )
-        // '(v\d+\.\d+\.\d+)';
-    $log->infof( "Using git tag regex '%s'.", $version_tag_regex );
+	# Tag pattern.
+	my $version_tag_regex = $config->get_regex( 'VersionTagsRequireChangelog', 'version_tag_regex' )
+		// '(v\d+\.\d+\.\d+)';
+	$log->infof( "Using git tag regex '%s'.", $version_tag_regex );
 
-    # Analyze each reference being pushed.
-    my $tags = {};
-    foreach my $line ( @$stdin )
-    {
-        chomp( $line );
-        $log->debugf( 'Parse STDIN line >%s<.', $line );
+	# Analyze each reference being pushed.
+	my $tags = {};
+	foreach my $line ( @$stdin )
+	{
+		chomp( $line );
+		$log->debugf( 'Parse STDIN line >%s<.', $line );
 
-        # Extract the tag information.
-        my ( $tag ) = ( $line =~ /^refs\/tags\/$version_tag_regex\b/x );
-        next if !defined( $tag );
-        $log->infof( "Found tag '%s'.", $tag );
-        $tags->{ $tag } = 1;
-    }
+		# Extract the tag information.
+		my ( $tag ) = ( $line =~ /^refs\/tags\/$version_tag_regex\b/x );
+		next if !defined( $tag );
+		$log->infof( "Found tag '%s'.", $tag );
+		$tags->{ $tag } = 1;
+	}
 
-    return keys %$tags;
+	return keys %$tags;
 }
 
 
@@ -213,39 +213,39 @@ An C<App::GitHooks> object.
 
 sub get_changelog_releases
 {
-    my ( $app ) = @_;
-    my $repository = $app->get_repository();
-    my $config = $app->get_config();
+	my ( $app ) = @_;
+	my $repository = $app->get_repository();
+	my $config = $app->get_config();
 
-    # Make sure the changelog file exists.
-    my $changelog_path = $config->get( 'VersionTagsRequireChangelog', 'changelog_path' );
-    $changelog_path = $repository->work_tree() . '/' . $changelog_path;
-    die "The changelog '$changelog_path' specified in your .githooksrc config does not exist in the repository\n"
-        if ! -e $changelog_path;
-    $log->infof( "Using changelog '%s'.", $changelog_path );
+	# Make sure the changelog file exists.
+	my $changelog_path = $config->get( 'VersionTagsRequireChangelog', 'changelog_path' );
+	$changelog_path = $repository->work_tree() . '/' . $changelog_path;
+	die "The changelog '$changelog_path' specified in your .githooksrc config does not exist in the repository\n"
+		if ! -e $changelog_path;
+	$log->infof( "Using changelog '%s'.", $changelog_path );
 
-    # Read the changelog.
-    my $changes =
-    try
-    {
-        return CPAN::Changes->load( $changelog_path );
-    }
-    catch
-    {
-        $log->error( "Unable to parse the change log" );
-        die "Unable to parse the change log\n";
-    };
-    $log->info( 'Successfully parsed the change log file.' );
+	# Read the changelog.
+	my $changes =
+	try
+	{
+		return CPAN::Changes->load( $changelog_path );
+	}
+	catch
+	{
+		$log->error( "Unable to parse the change log" );
+		die "Unable to parse the change log\n";
+	};
+	$log->info( 'Successfully parsed the change log file.' );
 
-    # Organize the releases into a hash for easy lookup.
-    my $releases =
-    {
-        map { $_->version() => $_ }
-        $changes->releases()
-    };
-    $log->infof( "Found %s release(s) in the changelog file.", scalar( keys %$releases ) );
+	# Organize the releases into a hash for easy lookup.
+	my $releases =
+	{
+		map { $_->version() => $_ }
+		$changes->releases()
+	};
+	$log->infof( "Found %s release(s) in the changelog file.", scalar( keys %$releases ) );
 
-    return $releases;
+	return $releases;
 }
 
 
