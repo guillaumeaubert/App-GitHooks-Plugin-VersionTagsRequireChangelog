@@ -261,7 +261,7 @@ your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc App::GitHooks::Plugin::VersionTagsRequireChangelog
+	perldoc App::GitHooks::Plugin::VersionTagsRequireChangelog
 
 
 You can also look for information at:
