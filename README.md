@@ -4,6 +4,7 @@ App-GitHooks-Plugin-VersionTagsRequireChangelog
 [![Build Status](https://travis-ci.org/guillaumeaubert/App-GitHooks-Plugin-VersionTagsRequireChangelog.svg?branch=master)](https://travis-ci.org/guillaumeaubert/App-GitHooks-Plugin-VersionTagsRequireChangelog)
 [![Coverage Status](https://coveralls.io/repos/guillaumeaubert/App-GitHooks-Plugin-VersionTagsRequireChangelog/badge.svg?branch=master)](https://coveralls.io/r/guillaumeaubert/App-GitHooks-Plugin-VersionTagsRequireChangelog?branch=master)
 [![CPAN](https://img.shields.io/cpan/v/App-GitHooks-Plugin-VersionTagsRequireChangelog.svg)](https://metacpan.org/release/App-GitHooks-Plugin-VersionTagsRequireChangelog)
+[![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://opensource.org/licenses/GPL-3.0)
 
 App::GitHooks plugin to require that git version tags have a matching changelog entry.
 
