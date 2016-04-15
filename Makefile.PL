@@ -3,22 +3,22 @@ require 5.008;
 use ExtUtils::MakeMaker;
 WriteMakefile
 (
-  'test' => {
-              'TESTS' => 't/*.t'
-            },
-  'PL_FILES' => {},
-  'INSTALLDIRS' => 'site',
-  'NAME' => 'App::GitHooks::Plugin::VersionTagsRequireChangelog',
   'EXE_FILES' => [],
+  'INSTALLDIRS' => 'site',
+  'PL_FILES' => {},
   'VERSION_FROM' => 'lib/App/GitHooks/Plugin/VersionTagsRequireChangelog.pm',
+  'NAME' => 'App::GitHooks::Plugin::VersionTagsRequireChangelog',
   'PREREQ_PM' => {
-                   'Try::Tiny' => 0,
                    'App::GitHooks' => 0,
-                   'Test::Requires::Git' => 1.005,
-                   'Test::FailWarnings' => 0,
                    'Log::Any' => 0,
                    'Test::More' => '0.94',
+                   'Try::Tiny' => 0,
+                   'Test::FailWarnings' => 0,
+                   'Test::Requires::Git' => '1.005',
                    'CPAN::Changes' => 0
-                 }
+                 },
+  'test' => {
+              'TESTS' => 't/*.t'
+            }
 )
 ;
