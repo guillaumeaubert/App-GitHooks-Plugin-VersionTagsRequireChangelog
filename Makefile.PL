@@ -4,21 +4,21 @@ use ExtUtils::MakeMaker;
 WriteMakefile
 (
   'EXE_FILES' => [],
-  'INSTALLDIRS' => 'site',
-  'PL_FILES' => {},
-  'VERSION_FROM' => 'lib/App/GitHooks/Plugin/VersionTagsRequireChangelog.pm',
   'NAME' => 'App::GitHooks::Plugin::VersionTagsRequireChangelog',
-  'PREREQ_PM' => {
-                   'App::GitHooks' => 0,
-                   'Log::Any' => 0,
-                   'Test::More' => '0.94',
-                   'Try::Tiny' => 0,
-                   'Test::FailWarnings' => 0,
-                   'Test::Requires::Git' => '1.005',
-                   'CPAN::Changes' => 0
-                 },
   'test' => {
               'TESTS' => 't/*.t'
-            }
+            },
+  'VERSION_FROM' => 'lib/App/GitHooks/Plugin/VersionTagsRequireChangelog.pm',
+  'INSTALLDIRS' => 'site',
+  'PREREQ_PM' => {
+                   'Try::Tiny' => 0,
+                   'CPAN::Changes' => 0,
+                   'Test::More' => '0.94',
+                   'Test::Requires::Git' => '1.005',
+                   'Test::FailWarnings' => 0,
+                   'App::GitHooks' => 0,
+                   'Log::Any' => 0
+                 },
+  'PL_FILES' => {}
 )
 ;
